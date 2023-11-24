@@ -39,7 +39,7 @@ public class SecurityConfig {
 
         return http.antMatcher("/**")
                 .authorizeRequests()
-                //.antMatchers("/api/producto/{productoId}").permitAll()
+                .antMatchers("/api/dispositivo/saveDevice").permitAll()
                 .anyRequest()
                 .hasAnyRole("USER","ADMIN", "SUPERADMIN")
                 .and()
