@@ -9,6 +9,7 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -70,4 +71,9 @@ public class DispositivoService {
                 notification.getId(), notification.getTitle(), notification.getMessage()
         );
     }
+
+    public List<Dispositivo> getAllDevices() {
+        return (List<Dispositivo>) repository.findAll();
+    }
+
 }

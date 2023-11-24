@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/dispositivo")
 public class DispositivoController {
@@ -35,4 +37,12 @@ public class DispositivoController {
             return new ResponseEntity<>("Error al enviar la notificación.", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @GetMapping("/getAllDevices")
+    public ResponseEntity<List<Dispositivo>> getAllDevices() {
+        List<Dispositivo> dispositivos = service.getAllDevices();
+        return new ResponseEntity<>(dispositivos, HttpStatus.OK);
+    }
+
+
 }
