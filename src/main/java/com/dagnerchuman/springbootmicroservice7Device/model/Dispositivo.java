@@ -11,7 +11,7 @@ public class Dispositivo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     @Column(length = 400)
     private String deviceId;
