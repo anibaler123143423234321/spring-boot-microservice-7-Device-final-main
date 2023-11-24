@@ -44,5 +44,15 @@ public class DispositivoController {
         return new ResponseEntity<>(dispositivos, HttpStatus.OK);
     }
 
+    @PostMapping("/sendNotification")
+    public ResponseEntity<String> sendNotification(@RequestBody SendNotification notification) {
+        try {
+            service.sendNotificationToAll(notification);
+            return new ResponseEntity<>("Notificaciones enviada correctamente.", HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>("Error al enviar las notificaciones.", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
 }

@@ -9,6 +9,7 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -73,7 +74,21 @@ public class DispositivoService {
     }
 
     public List<Dispositivo> getAllDevices() {
-        return (List<Dispositivo>) repository.findAll();
+        Iterable<Dispositivo> dispositivosIterable = repository.findAll();
+        List<Dispositivo> dispositivos = new ArrayList<>();
+
+        dispositivosIterable.forEach(dispositivos::add);
+
+        return dispositivos;
+    }
+
+    public void sendNotificationToAll(SendNotification notification) {
+        List<Dispositivo> dispositivos = getAllDevices();
+
+        for (Dispositivo dispositivo : dispositivos) {
+            notification.setId(dispositivo.getDeviceId());
+            sendNotification(notification, dispositivo.getId());
+        }
     }
 
 }
