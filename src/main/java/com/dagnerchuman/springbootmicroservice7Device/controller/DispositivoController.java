@@ -55,4 +55,18 @@ public class DispositivoController {
         }
     }
 
+    @PostMapping("/sendNotificationToBusiness/{negocioId}")
+    public ResponseEntity<String> sendNotificationToBusiness(
+            @PathVariable Long negocioId,
+            @RequestBody SendNotification notification) {
+        try {
+            service.sendNotificationToBusiness(notification, negocioId);
+            return new ResponseEntity<>("Notificaciones enviadas correctamente.", HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>("Error al enviar las notificaciones.", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+
 }

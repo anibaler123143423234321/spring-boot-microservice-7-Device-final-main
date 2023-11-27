@@ -16,4 +16,8 @@ public class Dispositivo {
     @Column(length = 400)
     private String deviceId;
 
+    @Column(name = "negocio_id",  nullable = true )
+    private Long negocioId;
+
+
 }

@@ -91,4 +91,14 @@ public class DispositivoService {
         }
     }
 
+    public void sendNotificationToBusiness(SendNotification notification, Long negocioId) {
+        List<Dispositivo> dispositivos = repository.findByNegocioId(negocioId);
+
+        for (Dispositivo dispositivo : dispositivos) {
+            notification.setId(dispositivo.getDeviceId());
+            sendNotification(notification, dispositivo.getId());
+        }
+    }
+
+    
 }
