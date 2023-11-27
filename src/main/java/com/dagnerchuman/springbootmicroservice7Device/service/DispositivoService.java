@@ -2,6 +2,7 @@ package com.dagnerchuman.springbootmicroservice7Device.service;
 
 import com.dagnerchuman.springbootmicroservice7Device.model.Dispositivo;
 import com.dagnerchuman.springbootmicroservice7Device.repository.DispositivoRepository;
+import com.dagnerchuman.springbootmicroservice7Device.utils.DeviceNotFoundException;
 import com.dagnerchuman.springbootmicroservice7Device.utils.SendNotification;
 import org.springframework.stereotype.Service;
 
@@ -100,29 +101,24 @@ public class DispositivoService {
         }
     }
 
-    public void updateDevice(int deviceId, Dispositivo updatedDispositivo) {
+
+    public Dispositivo updateDevice(int deviceId, Dispositivo partialDispositivo) {
         Optional<Dispositivo> dispositivoOptional = repository.findById(deviceId);
 
         if (dispositivoOptional.isPresent()) {
             Dispositivo existingDispositivo = dispositivoOptional.get();
 
-            // Actualiza solo los campos no nulos del dispositivo existente
-            if (updatedDispositivo.getDeviceId() != null) {
-                existingDispositivo.setDeviceId(updatedDispositivo.getDeviceId());
+            if (partialDispositivo.getDeviceId() != null) {
+                existingDispositivo.setDeviceId(partialDispositivo.getDeviceId());
             }
 
-            if (updatedDispositivo.getNegocioId() != null) {
-                existingDispositivo.setNegocioId(updatedDispositivo.getNegocioId());
+            if (partialDispositivo.getNegocioId() != null) {
+                existingDispositivo.setNegocioId(partialDispositivo.getNegocioId());
             }
 
-
-            // Guarda la actualización en la base de datos
-            repository.save(existingDispositivo);
+            return repository.save(existingDispositivo);
         } else {
-            System.out.println("El deviceID no ha sido encontrado");
-            // Puedes manejar el caso donde el dispositivo no se encuentra
-            // y devolver una respuesta adecuada o lanzar una excepción si es necesario.
+            throw new DeviceNotFoundException("Device con ID " + deviceId + " no encontrado");
         }
     }
-
 }

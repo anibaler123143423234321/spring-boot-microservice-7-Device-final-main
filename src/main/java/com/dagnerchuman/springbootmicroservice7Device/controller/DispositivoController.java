@@ -2,6 +2,7 @@ package com.dagnerchuman.springbootmicroservice7Device.controller;
 
 import com.dagnerchuman.springbootmicroservice7Device.model.Dispositivo;
 import com.dagnerchuman.springbootmicroservice7Device.service.DispositivoService;
+import com.dagnerchuman.springbootmicroservice7Device.utils.DeviceNotFoundException;
 import com.dagnerchuman.springbootmicroservice7Device.utils.SendNotification;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -68,17 +69,14 @@ public class DispositivoController {
         }
     }
 
-    @PatchMapping("/updateDevice/{deviceId}")
-    public ResponseEntity<String> updateDevice(
+
+    @PostMapping("/updateDevice/{deviceId}")
+    public ResponseEntity<Dispositivo> updateDevice(
             @PathVariable int deviceId,
-            @RequestBody Dispositivo dispositivo) {
-        try {
-            service.updateDevice(deviceId, dispositivo);
-            return new ResponseEntity<>("Dispositivo actualizado correctamente.", HttpStatus.OK);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return new ResponseEntity<>("Error al actualizar el dispositivo.", HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+            @RequestBody Dispositivo partialDispositivo) {
+        Dispositivo updatedDispositivo = service.updateDevice(deviceId, partialDispositivo);
+        return new ResponseEntity<>(updatedDispositivo, HttpStatus.OK);
     }
+
 
 }

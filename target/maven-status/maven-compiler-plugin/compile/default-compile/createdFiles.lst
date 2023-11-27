@@ -1,5 +1,6 @@
 com\dagnerchuman\springbootmicroservice7Device\SpringBootMicroservice7DeviceApplication.class
 com\dagnerchuman\springbootmicroservice7Device\service\DispositivoService.class
+com\dagnerchuman\springbootmicroservice7Device\utils\DeviceNotFoundException.class
 com\dagnerchuman\springbootmicroservice7Device\security\SecurityConfig.class
 com\dagnerchuman\springbootmicroservice7Device\repository\DispositivoRepository.class
 com\dagnerchuman\springbootmicroservice7Device\model\Dispositivo.class
