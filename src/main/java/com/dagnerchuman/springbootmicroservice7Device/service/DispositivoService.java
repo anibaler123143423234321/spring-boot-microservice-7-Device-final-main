@@ -96,10 +96,16 @@ public class DispositivoService {
         List<Dispositivo> dispositivos = repository.findByNegocioId(negocioId);
 
         for (Dispositivo dispositivo : dispositivos) {
-            notification.setId(dispositivo.getDeviceId());
-            sendNotification(notification, dispositivo.getId());
+            try {
+                sendNotification(notification, dispositivo.getId());
+            } catch (Exception e) {
+                // Registra el error y continúa con el siguiente dispositivo
+                System.err.println("Error al enviar notificación al dispositivo " + dispositivo.getId() + ": " + e.getMessage());
+            }
         }
     }
+
+
 
 
     public Dispositivo updateDevice(int deviceId, Dispositivo partialDispositivo) {
