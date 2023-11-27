@@ -70,7 +70,7 @@ public class DispositivoController {
     }
 
 
-    @PostMapping("/updateDevice/{deviceId}")
+    @PutMapping("/updateDevice/{deviceId}")
     public ResponseEntity<Dispositivo> updateDevice(
             @PathVariable int deviceId,
             @RequestBody Dispositivo partialDispositivo) {
