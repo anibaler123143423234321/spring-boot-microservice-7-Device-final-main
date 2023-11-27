@@ -68,5 +68,17 @@ public class DispositivoController {
         }
     }
 
+    @PatchMapping("/updateDevice/{deviceId}")
+    public ResponseEntity<String> updateDevice(
+            @PathVariable int deviceId,
+            @RequestBody Dispositivo dispositivo) {
+        try {
+            service.updateDevice(deviceId, dispositivo);
+            return new ResponseEntity<>("Dispositivo actualizado correctamente.", HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>("Error al actualizar el dispositivo.", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
 }

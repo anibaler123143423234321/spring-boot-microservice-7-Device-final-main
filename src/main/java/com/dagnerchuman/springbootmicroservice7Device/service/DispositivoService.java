@@ -100,5 +100,29 @@ public class DispositivoService {
         }
     }
 
-    
+    public void updateDevice(int deviceId, Dispositivo updatedDispositivo) {
+        Optional<Dispositivo> dispositivoOptional = repository.findById(deviceId);
+
+        if (dispositivoOptional.isPresent()) {
+            Dispositivo existingDispositivo = dispositivoOptional.get();
+
+            // Actualiza solo los campos no nulos del dispositivo existente
+            if (updatedDispositivo.getDeviceId() != null) {
+                existingDispositivo.setDeviceId(updatedDispositivo.getDeviceId());
+            }
+
+            if (updatedDispositivo.getNegocioId() != null) {
+                existingDispositivo.setNegocioId(updatedDispositivo.getNegocioId());
+            }
+
+
+            // Guarda la actualización en la base de datos
+            repository.save(existingDispositivo);
+        } else {
+            System.out.println("El deviceID no ha sido encontrado");
+            // Puedes manejar el caso donde el dispositivo no se encuentra
+            // y devolver una respuesta adecuada o lanzar una excepción si es necesario.
+        }
+    }
+
 }
