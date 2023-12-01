@@ -128,4 +128,17 @@ public class DispositivoService {
             throw new DeviceNotFoundException("Device con ID " + deviceId + " no encontrado");
         }
     }
+
+
+    public Dispositivo getDeviceByDeviceId(String deviceId) {
+        Optional<Dispositivo> dispositivoOptional = repository.findByDeviceId(deviceId);
+
+        if (dispositivoOptional.isPresent()) {
+            return dispositivoOptional.get();
+        } else {
+            throw new DeviceNotFoundException("Device with deviceId " + deviceId + " not found");
+        }
+    }
+
+
 }

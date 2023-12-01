@@ -45,6 +45,18 @@ public class DispositivoController {
         return new ResponseEntity<>(dispositivos, HttpStatus.OK);
     }
 
+    @GetMapping("/getDevice/{deviceId}")
+    public ResponseEntity<?> getDeviceByDeviceId(@PathVariable String deviceId) {
+        try {
+            Dispositivo dispositivo = service.getDeviceByDeviceId(deviceId);
+            return new ResponseEntity<>(dispositivo, HttpStatus.OK);
+        } catch (DeviceNotFoundException e) {
+            return new ResponseEntity<>("Device not found", HttpStatus.NOT_FOUND);
+        }
+    }
+
+
+
     @PostMapping("/sendNotification")
     public ResponseEntity<String> sendNotification(@RequestBody SendNotification notification) {
         try {
